@@ -29,9 +29,11 @@ exports.handler = function(event, context) {
       if (rec.Sns.TopicArn === process.env.SNS_TOPIC_ARN) {
           if (message.notificationType === "Bounce") {
                 var bouncedRecipients = [];
+                var smtpStatusCodes = [];
                 var diagnosticCodes = [];
                 for(let key in message.bounce.bouncedRecipients) {
                   bouncedRecipients.push(message.bounce.bouncedRecipients[key].emailAddress);
+                  smtpStatusCodes.push(message.bounce.bouncedRecipients[key].status)
                   diagnosticCodes.push(message.bounce.bouncedRecipients[key].diagnosticCode);
                 }
                 obj = {
@@ -49,6 +51,9 @@ exports.handler = function(event, context) {
                         }, {
                             title: "bouncedRecipients",
                             value: JSON.stringify(bouncedRecipients)
+                        }, {
+                            title: "smtpStatus",
+                            value: JSON.stringify(smtpStatusCodes)
                         }, {
                             title: "diagnosticCode",
                             value: JSON.stringify(diagnosticCodes)
