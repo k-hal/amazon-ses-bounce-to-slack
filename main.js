@@ -33,7 +33,7 @@ exports.handler = function(event, context) {
                 var diagnosticCodes = [];
                 for(let key in message.bounce.bouncedRecipients) {
                   bouncedRecipients.push(message.bounce.bouncedRecipients[key].emailAddress);
-                  smtpStatusCodes.push(message.bounce.bouncedRecipients[key].status)
+                  smtpStatusCodes.push(message.bounce.bouncedRecipients[key].status);
                   diagnosticCodes.push(message.bounce.bouncedRecipients[key].diagnosticCode);
                 }
                 obj = {
